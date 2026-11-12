@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Quick Buttons</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Quick Buttons</h1>
+          <span class="version">v1.0.0</span>
+        </div>
+      </div>
+      <div class="site-badge" id="site-domain" title="Aktuelle Website">...</div>
+    </header>
+
+    <!-- Site Activation Toggle -->
+    <section class="section card">
+      <div class="setting-row">
+        <div class="setting-info">
+          <span class="setting-title">Auf dieser Website aktivieren</span>
+          <span class="setting-desc" id="status-desc">Status wird geladen...</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-enabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Toolbar Visibility Toggle -->
+      <div class="setting-row">
+        <div class="setting-info">
+          <span class="setting-title">Schwebende Leiste anzeigen</span>
+          <span class="setting-desc">Leiste auf dieser Seite ein-/ausblenden</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-visible">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="section">
+      <button type="button" class="action-btn secondary full-width" id="btn-reset-pos" title="Versetzt die Leiste wieder standardmäßig nach unten links">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        Leistenposition auf unten links zurücksetzen
+      </button>
+    </section>
+
+    <!-- Buttons Overview List -->
+    <section class="section">
+      <div class="section-title-row">
+        <span class="section-title">Konfigurierte Buttons</span>
+        <span class="counter" id="buttons-count">0</span>
+      </div>
+
+      <div class="buttons-list" id="buttons-list">
+        <div class="empty-state">
+          <span>Noch keine eigenen Buttons für diese Webseite vorhanden.</span>
+          <span class="empty-hint">Klicken Sie auf das Plus (+) in der schwebenden Leiste unten links, um Buttons zu erstellen.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer info -->
+    <footer class="popup-footer">
+      <span>Tipp: Rechtsklick auf Buttons öffnet das Kontextmenü</span>
+    </footer>
+  </div>
+
+  <script src="../lib/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

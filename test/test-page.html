@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Quick Buttons – Testlabor & Demo</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --amber: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px 20px 120px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    p.subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .instruction-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.15));
+      border: 1px solid #6366f1;
+      border-radius: 12px;
+      padding: 18px 22px;
+    }
+
+    .instruction-card h3 {
+      font-size: 16px;
+      color: #a5b4fc;
+      margin-bottom: 8px;
+    }
+
+    .instruction-card ol {
+      margin-left: 20px;
+      color: #e2e8f0;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.test-btn {
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.test-btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-save { background: #10b981; color: #ffffff; }
+    .btn-save:hover { background: #059669; }
+
+    .btn-cancel { background: #334155; color: #cbd5e1; }
+    .btn-cancel:hover { background: #475569; }
+
+    .btn-delete { background: #ef4444; color: #ffffff; }
+    .btn-delete:hover { background: #dc2626; }
+
+    .btn-primary { background: #3b82f6; color: #ffffff; }
+    .btn-primary:hover { background: #2563eb; }
+
+    .btn-warning { background: #f59e0b; color: #ffffff; }
+    .btn-warning:hover { background: #d97706; }
+
+    /* Counter display */
+    .counter-display {
+      font-size: 32px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-align: center;
+      padding: 10px 0;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    /* Event log */
+    .log-box {
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      height: 180px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 12px;
+      color: #10b981;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .log-item {
+      display: flex;
+      gap: 8px;
+    }
+
+    .log-time {
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚡ Custom Quick Buttons – Testlabor</h1>
+      <p class="subtitle">Verwenden Sie diese Seite, um die Funktionen der Browser-Erweiterung direkt auszuprobieren.</p>
+    </header>
+
+    <div class="instruction-card">
+      <h3>🚀 So testen Sie die Erweiterung:</h3>
+      <ol>
+        <li>Klicken Sie auf das <strong>Erweiterungs-Symbol oben rechts</strong> im Browser und aktivieren Sie den Schalter <em>„Auf dieser Website aktivieren“</em> (Standardeinstellung: auf allen Webseiten zunächst inaktiv).</li>
+        <li>Beachten Sie die <strong>schwebende Leiste unten links</strong> im Browserfenster.</li>
+        <li>Klicken Sie auf das <strong>Plus-Zeichen (+)</strong> in der schwebenden Leiste, um einen eigenen Button zu erstellen.</li>
+        <li>Wählen Sie im Dialog <em>„Element auf Webseite auswählen“</em> und klicken Sie auf den grünen Button <em>„Speichern“</em> oder <em>„Zähler +1“</em> unten.</li>
+        <li>Geben Sie dem Button einen Namen (z. B. <em>„Mein Schnell-Speichern“</em>), wählen Sie Farben und speichern Sie.</li>
+        <li>Klicken Sie auf Ihren neuen Quick Button in der Leiste: Im Event-Log sehen Sie sofort die ausgelöste Aktion!</li>
+        <li><strong>Drag &amp; Drop:</strong> Ziehen Sie Buttons mit gedrückter Maustaste nach links oder ganz nach rechts an die gewünschte Position.</li>
+        <li><strong>Rechtsklick:</strong> Klicken Sie mit rechts auf Ihren Quick Button, um ihn zu bearbeiten, Text/Farbe anzupassen, zu duplizieren oder zu löschen.</li>
+      </ol>
+    </div>
+
+    <div class="grid">
+      <!-- Standard Action Buttons -->
+      <div class="card">
+        <h2>1. Standard Webseiten-Aktionen</h2>
+        <p>Häufige Formular- und Bearbeitungsbuttons mit eindeutigen IDs und Beschriftungen.</p>
+        <div class="btn-row">
+          <button type="button" class="test-btn btn-save" id="btn-original-save" data-action="save">
+            💾 Speichern
+          </button>
+          <button type="button" class="test-btn btn-primary" id="btn-original-publish">
+            🚀 Veröffentlichen
+          </button>
+          <button type="button" class="test-btn btn-cancel" id="btn-original-cancel">
+            ✕ Abbrechen
+          </button>
+          <button type="button" class="test-btn btn-delete" id="btn-original-delete">
+            🗑️ Löschen
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Counter -->
+      <div class="card">
+        <h2>2. Dynamischer Klickzähler</h2>
+        <p>Testen Sie, wie Klicks auf Ihren Quick Button den Zustand dieser Seite in Echtzeit verändern.</p>
+        <div class="counter-display" id="counter-value">0</div>
+        <div class="btn-row" style="justify-content: center;">
+          <button type="button" class="test-btn btn-primary" id="btn-counter-inc">
+            ➕ Zähler +1
+          </button>
+          <button type="button" class="test-btn btn-warning" id="btn-counter-reset">
+            🔄 Zurücksetzen
+          </button>
+        </div>
+      </div>
+
+      <!-- Complex Attributes & Fallback Test -->
+      <div class="card">
+        <h2>3. Moderne Web-Elemente (data-testid &amp; ARIA)</h2>
+        <p>Elemente ohne feste IDs, wie sie in React-, Vue- oder SPA-Anwendungen üblich sind.</p>
+        <div class="btn-row">
+          <button type="button" class="test-btn btn-primary" data-testid="quick-sync-btn" aria-label="Daten synchronisieren">
+            🔄 Synchronisieren
+          </button>
+          <button type="button" class="test-btn btn-warning" data-qa="export-data" role="button">
+            📥 Exportieren
+          </button>
+        </div>
+      </div>
+
+      <!-- Form Inputs & Actions -->
+      <div class="card">
+        <h2>4. Formular-Absendung</h2>
+        <p>Ein typisches Such- und Absendeformular.</p>
+        <form id="sample-form" onsubmit="event.preventDefault(); logAction('Formular abgeschickt mit Wert: ' + document.getElementById('search-input').value);">
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="search-input" placeholder="Suchbegriff eingeben..." style="flex: 1; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); background: #0f172a; color: white;">
+            <button type="submit" class="test-btn btn-primary" id="btn-search-submit">
+              🔍 Suchen
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- iFrame Embedded Buttons Test -->
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2>5. Buttons innerhalb eines iFrames (iFrame-Support)</h2>
+        <p>Testen Sie, dass der Auswahlmodus gezielt Buttons <em>im</em> iFrame hervorhebt und auswählt (nicht das gesamte iFrame als Block).</p>
+        <iframe id="test-iframe" srcdoc="<!DOCTYPE html><html><head><style>body { font-family: sans-serif; background: #1e293b; color: white; padding: 12px; margin: 0; } button { padding: 8px 14px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; margin-right: 8px; } .ibtn-save { background: #10b981; color: white; } .ibtn-action { background: #6366f1; color: white; }</style></head><body><div style='margin-bottom: 8px; font-size: 12px; color: #94a3b8;'>Eingebetteter Bereich (iFrame):</div><button class='ibtn-save' id='iframe-btn-save'>💾 iFrame Speichern</button><button class='ibtn-action' id='iframe-btn-trigger'>⚡ iFrame Aktion</button><script>document.getElementById('iframe-btn-save').onclick = () => window.parent.postMessage({ type: 'IFRAME_LOG', text: 'Button im iFrame geklickt: 💾 Speichern!' }, '*');document.getElementById('iframe-btn-trigger').onclick = () => window.parent.postMessage({ type: 'IFRAME_LOG', text: 'Button im iFrame geklickt: ⚡ Aktion!' }, '*');</script></body></html>" style="width: 100%; height: 95px; border: 1px dashed var(--border); border-radius: 8px; background: #0f172a;"></iframe>
+      </div>
+    </div>
+
+    <!-- Live Event Log -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Echtzeit Event-Log</h2>
+        <button type="button" class="test-btn btn-cancel" id="btn-clear-log" style="padding: 4px 10px; font-size: 11px;">Log leeren</button>
+      </div>
+      <div class="log-box" id="log-box">
+        <div class="log-item">
+          <span class="log-time">[Bereit]</span>
+          <span>Testlabor geladen. Klicken Sie auf Buttons, um Aktionen zu protokollieren.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const logBox = document.getElementById('log-box');
+    let count = 0;
+    const counterEl = document.getElementById('counter-value');
+
+    function logAction(msg) {
+      const now = new Date().toLocaleTimeString();
+      const item = document.createElement('div');
+      item.className = 'log-item';
+      item.innerHTML = `<span class="log-time">[${now}]</span> <span>${msg}</span>`;
+      logBox.appendChild(item);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // Attach listeners
+    document.getElementById('btn-original-save').onclick = () => logAction('Aktion ausgeführt: "Speichern" geklickt!');
+    document.getElementById('btn-original-publish').onclick = () => logAction('Aktion ausgeführt: "Veröffentlichen" geklickt!');
+    document.getElementById('btn-original-cancel').onclick = () => logAction('Aktion ausgeführt: "Abbrechen" geklickt!');
+    document.getElementById('btn-original-delete').onclick = () => logAction('Aktion ausgeführt: "Löschen" geklickt!');
+
+    document.getElementById('btn-counter-inc').onclick = () => {
+      count++;
+      counterEl.textContent = count;
+      logAction(`Zähler erhöht auf: ${count}`);
+    };
+
+    document.getElementById('btn-counter-reset').onclick = () => {
+      count = 0;
+      counterEl.textContent = count;
+      logAction('Zähler zurückgesetzt auf: 0');
+    };
+
+    document.querySelector('[data-testid="quick-sync-btn"]').onclick = () => {
+      logAction('Aktion ausgeführt: "Synchronisieren" (data-testid) geklickt!');
+    };
+
+    document.querySelector('[data-qa="export-data"]').onclick = () => {
+      logAction('Aktion ausgeführt: "Exportieren" (data-qa) geklickt!');
+    };
+
+    document.getElementById('btn-clear-log').onclick = () => {
+      logBox.innerHTML = '';
+      logAction('Event-Log zurückgesetzt.');
+    };
+
+    // Hotkey-Test: Tastendrücke auf der Webseite protokollieren
+    window.addEventListener('keydown', (e) => {
+      // Wenn der Fokus nicht in einem Eingabefeld liegt
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      if (e.key === 's' || e.key === 'k' || e.key === 'f') {
+        logAction(`[Webseiten-Hotkey] Taste '${e.key}' auf der Seite abgefangen!`);
+      }
+    });
+
+    // iFrame Event-Empfänger
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'IFRAME_LOG') {
+        logAction(`[iFrame-Aktion] ${e.data.text}`);
+      }
+    });
+  </script>
+</body>
+</html>
